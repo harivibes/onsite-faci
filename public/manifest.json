@@ -1,0 +1,10 @@
+{
+  "name": "Octopus Floor — ParSEC Jayanagar",
+  "short_name": "Octopus",
+  "description": "Facilitator capture system for ParSEC Jayanagar, Param Foundation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3EE",
+  "theme_color": "#111111",
+  "icons": []
+}

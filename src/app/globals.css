@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  background: #F5F3EE;
+  color: #111111;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, .btn { -webkit-tap-highlight-color: transparent; }
+
+/* ─── Tap feedback ─────────────────────────────── */
+.tap {
+  transition: transform 100ms ease, box-shadow 150ms ease;
+}
+.tap:active { transform: translate(2px, 2px); box-shadow: none !important; }
+
+/* ─── Brutalist primitives ─────────────────────── */
+
+/* Eyebrow: small caps mono label */
+.eyebrow {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Display heading — serif drama */
+.display {
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+
+/* Card — paper-on-paper with hard offset shadow */
+.brutal-card {
+  background: #FFFFFF;
+  border: 2px solid #111111;
+  box-shadow: 4px 4px 0 0 #111111;
+  border-radius: 0;
+}
+.brutal-card-md {
+  background: #FFFFFF;
+  border: 2px solid #111111;
+  box-shadow: 6px 6px 0 0 #111111;
+  border-radius: 0;
+}
+.brutal-card-red {
+  background: #FFFFFF;
+  border: 2px solid #C4291E;
+  box-shadow: 6px 6px 0 0 #C4291E;
+  border-radius: 0;
+}
+
+/* Subcard — for nested panels */
+.brutal-subcard {
+  background: #FAF8F5;
+  border: 2px solid #111111;
+  border-radius: 0;
+}
+
+/* Pill button (still brutalist — square with hard shadow) */
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border: 2px solid #111111;
+  border-radius: 0;
+  background: #FFFFFF;
+  color: #111111;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 0 #111111;
+  transition: transform 100ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  cursor: pointer;
+}
+.brutal-btn:hover { background: #F5F3EE; }
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 #111111;
+}
+.brutal-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.brutal-btn-primary { background: #111111; color: #FFFFFF; }
+.brutal-btn-primary:hover { background: #222222; }
+
+.brutal-btn-red {
+  background: #C4291E;
+  color: #FFFFFF;
+  border-color: #111111;
+  box-shadow: 3px 3px 0 0 #111111;
+}
+.brutal-btn-red:hover { background: #a8221a; }
+
+.brutal-btn-yellow {
+  background: #EAB308;
+  color: #111111;
+}
+
+.brutal-btn-ghost { background: #FFFFFF; color: #111111; }
+
+/* Chip — small status pill (still brutal) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 2px 7px;
+  border: 1.5px solid #111111;
+  border-radius: 0;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #FFFFFF;
+  color: #111111;
+}
+.chip-red    { background: #C4291E; color: #FFFFFF; border-color: #111111; }
+.chip-yellow { background: #EAB308; color: #111111; }
+.chip-green  { background: #16A34A; color: #FFFFFF; }
+.chip-blue   { background: #3B82F6; color: #FFFFFF; }
+.chip-mute   { background: #FAF8F5; color: #111111; }
+
+/* Image card with bottom-title */
+.image-card {
+  position: relative;
+  border: 2px solid #111111;
+  background: #FAF8F5;
+  box-shadow: 4px 4px 0 0 #111111;
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform 100ms ease, box-shadow 150ms ease;
+}
+.image-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 #111111;
+}
+.image-card .image-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(17,17,17,0.78) 100%);
+}
+.image-card .image-card__title {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  color: #fff;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.05;
+}
+
+/* Sticker — for stream type emojis */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #111111;
+  background: #FFFFFF;
+  box-shadow: 3px 3px 0 0 #111111;
+  border-radius: 0;
+  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+/* Section divider — brutal hairline */
+.brutal-rule {
+  height: 2px;
+  background: #111111;
+  border: 0;
+  margin: 0;
+}
+
+/* Form inputs */
+.brutal-input,
+.brutal-select,
+.brutal-textarea {
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid #111111;
+  border-radius: 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111111;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  outline: none;
+  transition: box-shadow 120ms ease;
+}
+.brutal-input:focus,
+.brutal-select:focus,
+.brutal-textarea:focus {
+  box-shadow: 3px 3px 0 0 #C4291E;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Line clamp helpers */
+.line-clamp-1 {
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+.line-clamp-2 {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Spinner — brutalist square */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #111;
+  border-top-color: #C4291E;
+  animation: spin 600ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Tab pill */
+.brutal-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 2px solid #111111;
+  background: #FFFFFF;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 100ms ease, box-shadow 150ms ease;
+}
+.brutal-tab[data-active="true"] {
+  background: #111111;
+  color: #FFFFFF;
+  box-shadow: 3px 3px 0 0 #C4291E;
+}
+
+/* Notification dot */
+.notif-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #C4291E;
+  color: #fff;
+  border: 2px solid #111;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
