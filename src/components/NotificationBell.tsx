@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { fetchNotifications, markAllSeen, type NotifItem } from "@/lib/notifications";
-import type { User } from "@/lib/types";
+import type { Category, User } from "@/lib/types";
 import { CATEGORY_META } from "@/lib/types";
 
 export default function NotificationBell({ user }: { user: User }) {
@@ -94,14 +94,17 @@ export default function NotificationBell({ user }: { user: User }) {
             ) : (
               <ul>
                 {items.map((it) => {
-                  const meta = CATEGORY_META[it.category];
+                  const isOctopus = it.category === "octopus";
+                  const meta = isOctopus
+                    ? { badge: "bg-brutal-dark text-white", emoji: "🐙" }
+                    : CATEGORY_META[it.category as Category];
                   return (
                     <li
                       key={it.id}
                       className="border-b border-brutal-dark/15 last:border-b-0"
                     >
                       <Link
-                        href={`/curator/thread/${it.observationId}`}
+                        href={it.link}
                         onClick={() => setOpen(false)}
                         className="block px-3 py-3 hover:bg-brutal-paper"
                       >
@@ -111,7 +114,7 @@ export default function NotificationBell({ user }: { user: User }) {
                           </span>
                           <div className="flex-1 min-w-0">
                             <div className="eyebrow text-brutal-dark/60">
-                              {it.galleryName} · {it.exhibitName}
+                              {it.galleryName}{it.exhibitName ? ` · ${it.exhibitName}` : ""}
                             </div>
                             <div className="text-[13px] font-semibold leading-tight mt-0.5 line-clamp-1">
                               {it.title}

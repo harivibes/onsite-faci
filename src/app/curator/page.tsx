@@ -26,7 +26,7 @@ interface ObsRow extends Observation {
 
 export default function CuratorDashboard() {
   return (
-    <AuthGuard allow={["curator", "maintenance", "social", "research", "iria", "admin"]}>
+    <AuthGuard allow={["curator", "maintenance", "social", "research", "admin"]}>
       {(user) => <Inner user={user} />}
     </AuthGuard>
   );
@@ -43,19 +43,8 @@ function Inner({ user }: { user: User }) {
   >(undefined);
 
   useEffect(() => {
-    if (user.role === "curator") {
-      supabase
-        .from("curator_assignments")
-        .select("gallery_id")
-        .eq("curator_id", user.id)
-        .then(({ data }) => {
-          setAllowedGalleryIds(
-            (data ?? []).map((r: { gallery_id: string }) => r.gallery_id)
-          );
-        });
-    } else {
-      setAllowedGalleryIds(null);
-    }
+    // Curators now see entries from every gallery, not just assigned ones.
+    setAllowedGalleryIds(null);
   }, [user.id, user.role]);
 
   async function load() {
@@ -149,17 +138,6 @@ function Inner({ user }: { user: User }) {
         ))}
       </div>
 
-      {user.role === "curator" &&
-        allowedGalleryIds &&
-        allowedGalleryIds.length === 0 && (
-          <div
-            className="brutal-card p-4 text-sm"
-            style={{ boxShadow: "4px 4px 0 0 #EAB308" }}
-          >
-            You haven’t been assigned to any galleries yet. Ask the admin.
-          </div>
-        )}
-
       {loading ? (
         <div className="text-brutal-dark/60 text-sm">Loading…</div>
       ) : items.length === 0 ? (
@@ -219,7 +197,6 @@ function subjectFor(role: Role): string {
     case "social":      return "Moments worth sharing.";
     case "maintenance": return "Things that need fixing.";
     case "research":    return "Observations from the floor.";
-    case "iria":        return "Floor signals for the lab.";
     case "admin":       return "Everything coming through.";
     default:            return "Inbox";
   }

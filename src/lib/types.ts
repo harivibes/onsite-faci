@@ -88,7 +88,30 @@ export interface Reply {
   created_at: string;
 }
 
-// Per-category visual + routing metadata (brutalist palette)
+// Stream 4 — Octopus quantitative observation. One row per (visitor, gallery, date).
+export interface OctopusObservation {
+  id: string;
+  facilitator_id: string;
+  gallery_id: string;
+  visitor_label: string;
+  visit_date: string; // YYYY-MM-DD
+  engagement: number; // 0-10
+  curiosity: number; // 0-10
+  social: number; // 0-10
+  unsolicited_contribution: boolean;
+  open_note: string | null;
+  session_id: string | null;
+  created_at: string;
+}
+
+export interface AppSetting {
+  key: string;
+  value: unknown;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+// Per-category visual + routing metadata (brutalist palette) — Bridge only
 export const CATEGORY_META: Record<
   Category,
   {
@@ -152,7 +175,7 @@ export const CATEGORY_META: Record<
 
 export const ROLE_META: Record<Role, { label: string; landing: string }> = {
   admin:        { label: "Admin",        landing: "/admin" },
-  iria:         { label: "IRIA Lab",     landing: "/curator" },
+  iria:         { label: "IRIA Lab",     landing: "/octopus" },
   curator:      { label: "Curator",      landing: "/curator" },
   facilitator:  { label: "Facilitator",  landing: "/facilitator" },
   maintenance:  { label: "Maintenance",  landing: "/curator" },
@@ -161,17 +184,18 @@ export const ROLE_META: Record<Role, { label: string; landing: string }> = {
 };
 
 /**
- * Which categories a given role should see in their inbox.
- * IRIA = everything except maintenance (research data stream only).
+ * Which Bridge categories a given role sees in their inbox.
+ * IRIA = empty (IRIA only sees Octopus data, not Bridge).
  */
 export function categoriesForRole(role: Role): Category[] {
   switch (role) {
     case "admin":
       return ["question", "suggestion", "appreciation", "reframing", "maintenance", "research"];
     case "iria":
-      return ["question", "suggestion", "appreciation", "reframing", "research"];
+      return []; // IRIA sees Octopus only
     case "curator":
-      return ["question", "suggestion", "reframing"];
+      // Curators see every Bridge entry (all six categories, all galleries).
+      return ["question", "suggestion", "appreciation", "reframing", "maintenance", "research"];
     case "social":
       return ["appreciation"];
     case "maintenance":

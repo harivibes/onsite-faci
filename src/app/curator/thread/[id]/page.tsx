@@ -36,7 +36,7 @@ const STATUSES: ObservationStatus[] = [
 export default function ThreadPage() {
   return (
     <AuthGuard
-      allow={["curator", "maintenance", "social", "research", "iria", "admin", "facilitator"]}
+      allow={["curator", "maintenance", "social", "research", "admin", "facilitator"]}
     >
       {(user) => <Inner user={user} />}
     </AuthGuard>
