@@ -99,9 +99,7 @@ export async function fetchNotifications(user: User): Promise<NotifItem[]> {
   if (cats.length === 0) return items;
 
   // Curators see entries from every gallery now (no per-gallery scoping).
-  const allowedGalleries: string[] | null = null;
-
-  let q = supabase
+  const { data } = await supabase
     .from("observations")
     .select(
       "id, category, sub_type, free_text, created_at, facilitator:users!observations_facilitator_id_fkey(display_name), exhibit:exhibits(name), gallery:galleries(name)"
@@ -111,13 +109,6 @@ export async function fetchNotifications(user: User): Promise<NotifItem[]> {
     .neq("facilitator_id", user.id)
     .order("created_at", { ascending: false })
     .limit(30);
-
-  if (allowedGalleries !== null) {
-    if (allowedGalleries.length === 0) return items;
-    q = q.in("gallery_id", allowedGalleries);
-  }
-
-  const { data } = await q;
   (data ?? []).forEach((o: any) => {
     const labelMap: Record<string, string> = {
       question: "New question",
